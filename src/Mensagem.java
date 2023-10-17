@@ -28,12 +28,12 @@ public class Mensagem implements Serializable {
         String mensagem = "";
 
         switch (opcao) {
-            case "1": {
-                mensagem += "MENSAGEM DE LEITURA JSON NÃO PRONTA.";
+            case "read": {
+                mensagem += "{\"method\": \"read\",\"args\": [\"\"]}";
                 break;
             }
-            case "2": {
-                mensagem += "MENSAGEM DE ESCRITA JSON NÃO PRONTA.";
+            case "write": {
+            	mensagem += "{\"method\": \"write\",\"args\": [\" " + fortune.toString() + "\"]}"; //toString caso for nulo a mesagem n dar erro
                 break;
             }
         }

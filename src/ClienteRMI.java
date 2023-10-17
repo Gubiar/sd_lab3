@@ -12,31 +12,50 @@ public class ClienteRMI {
 
 			String opcao = "";
 			Scanner leitura = new Scanner(System.in);
-
-			do {
+			
+			Boolean isRunning = true;
+			while (isRunning) {
 				System.out.println("1) Read");
 				System.out.println("2) Write");
-				System.out.println("x) Exit");
+				System.out.println("3) Exit");
 				System.out.print(">> ");
 				opcao = leitura.next();
+				
 
 				switch(opcao) {
 					case "1": {
+						leitura.nextLine(); //Consome o input anteiror (limpa o que o usuário digitou)
 						Mensagem mensagem = new Mensagem("", "read");
-						Mensagem resposta = stub.enviar(mensagem);
+						System.out.println(mensagem.getMensagem());
+						Mensagem resposta = stub.enviar(mensagem); //Envio para o servidor
+						System.out.println("Resultado:");
 						System.out.println(resposta.getMensagem());
+						
 						break;
 					}
 					case "2": {
+						leitura.nextLine(); //Consome o input anteiror (limpa o que o usuário digitou)
 						System.out.print("Add fortune: ");
-						String fortune = leitura.next();
+						String fortune = leitura.nextLine();
 						Mensagem mensagem = new Mensagem(fortune, "write");
-						Mensagem resposta = stub.enviar(mensagem);
+						System.out.println(mensagem.getMensagem());
+						
+						Mensagem resposta = stub.enviar(mensagem); //Envio para o servidor
+						
 						System.out.println(resposta.getMensagem());
+						
 						break;
 					}
+					case "3": {
+						System.out.print("Processo finalizado!\n");
+						isRunning = false;
+						break;
+					}
+					default: {
+						System.out.print("Digite uma opção válida!\n");
+					}
 				}
-			} while (!opcao.equals("x"));
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
